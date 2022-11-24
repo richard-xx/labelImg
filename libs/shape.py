@@ -1,16 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
 
-try:
-    from PyQt5.QtGui import *
-    from PyQt5.QtCore import *
-except ImportError:
-    from PyQt4.QtGui import *
-    from PyQt4.QtCore import *
+from qtpy.QtGui import *
 
 from libs.utils import distance
-import sys
 
 DEFAULT_LINE_COLOR = QColor(0, 255, 0, 128)
 DEFAULT_FILL_COLOR = QColor(255, 0, 0, 128)
@@ -56,9 +51,8 @@ class Shape(object):
         self._closed = False
 
         if line_color is not None:
-            # Override the class line_color attribute
-            # with an object attribute. Currently this
-            # is used for drawing the pending line a different color.
+            # Override the class line_color attribute with an object attribute.
+            # Currently, this is used for drawing the pending line a different color.
             self.line_color = line_color
 
     def close(self):

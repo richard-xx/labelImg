@@ -1,0 +1,4 @@
+﻿qtpy~=2.3.0
+pyside6
+loguru~=0.6.0
+lxml~=4.9.1

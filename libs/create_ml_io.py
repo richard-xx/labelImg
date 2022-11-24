@@ -1,17 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 import json
+import os
 from pathlib import Path
 
 from libs.constants import DEFAULT_ENCODING
-import os
 
-JSON_EXT = '.json'
+JSON_EXT = ".json"
 ENCODE_METHOD = DEFAULT_ENCODING
 
 
 class CreateMLWriter:
-    def __init__(self, folder_name, filename, img_size, shapes, output_file, database_src='Unknown', local_img_path=None):
+    def __init__(
+        self,
+        folder_name,
+        filename,
+        img_size,
+        shapes,
+        output_file,
+        database_src="Unknown",
+        local_img_path=None,
+    ):
         self.folder_name = folder_name
         self.filename = filename
         self.database_src = database_src
@@ -33,7 +42,7 @@ class CreateMLWriter:
         output_image_dict = {
             "image": self.filename,
             "verified": self.verified,
-            "annotations": []
+            "annotations": [],
         }
 
         for shape in self.shapes:
@@ -48,12 +57,7 @@ class CreateMLWriter:
 
             shape_dict = {
                 "label": shape["label"],
-                "coordinates": {
-                    "x": x,
-                    "y": y,
-                    "width": width,
-                    "height": height
-                }
+                "coordinates": {"x": x, "y": y, "width": width, "height": height},
             }
             output_image_dict["annotations"].append(shape_dict)
 
@@ -70,7 +74,8 @@ class CreateMLWriter:
 
         Path(self.output_file).write_text(json.dumps(output_dict), ENCODE_METHOD)
 
-    def calculate_coordinates(self, x1, x2, y1, y2):
+    @staticmethod
+    def calculate_coordinates(x1, x2, y1, y2):
         if x1 < x2:
             x_min = x1
             x_max = x2
